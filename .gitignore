@@ -1,1 +1,2 @@
 ".streamlit/secrets.toml"   # Add to .gitignore
+".streamlit/" 
