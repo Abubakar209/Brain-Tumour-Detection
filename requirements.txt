@@ -1,0 +1,8 @@
+streamlit
+ultralytics
+opencv-python
+matplotlib
+google-generativeai
+pinecone-client
+sentence-transformers
+gdown
