@@ -4,7 +4,7 @@ import cv2
 import matplotlib.pyplot as plt
 from ultralytics import YOLO
 import google.generativeai as genai
-from pinecone import Pinecone
+import Pinecone
 from sentence_transformers import SentenceTransformer
 
 # Initialize Pinecone client
