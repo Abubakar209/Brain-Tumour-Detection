@@ -107,7 +107,7 @@ def main():
             f.write(uploaded.getbuffer())
         st.image(uploaded, caption="Uploaded Image", use_column_width=True)
         
-        model = YOLO('G:/data/semester5/Brain.v3.yolov11/best.pt')  # Path to your YOLO model
+        model = YOLO('best.pt')  # Path to your YOLO model
         tumor_count, tumor_details = predict_and_display("uploaded_image.jpg", model)
         
         user_query = st.text_input("Ask a question about the tumor results or general advice:")
