@@ -1,10 +1,11 @@
 import os
 import streamlit as st
+os.system("apt-get update && apt-get install -y libgl1-mesa-glx libglib2.0-0")
 import cv2
 import matplotlib.pyplot as plt
 from ultralytics import YOLO
 import google.generativeai as genai
-import Pinecone
+from pinecone import Pinecone
 from sentence_transformers import SentenceTransformer
 
 # Initialize Pinecone client
