@@ -25,6 +25,10 @@ embedding_model = genai.GenerativeModel("embedding-001")
 # Function to generate embeddings from the text
 def generate_embeddings(text):
     try:
+        if not text:
+            st.warning("⚠️ Empty text received for embedding.")
+            return None
+
         response = embedding_model.embed_content(
             content=text,
             task_type="retrieval_document"
