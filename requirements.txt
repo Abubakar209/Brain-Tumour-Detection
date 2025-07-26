@@ -6,4 +6,3 @@ google-generativeai
 pinecone
 sentence-transformers
 gdown
-torch
