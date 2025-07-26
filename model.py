@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from ultralytics import YOLO
 import google.generativeai as genai
 from pinecone import Pinecone
-from sentence_transformers import SentenceTransformer
+
 
 # Initialize Pinecone client
 pi_key=st.secrets["pi_key"]  # Replace with your Pinecone API key
@@ -18,11 +18,22 @@ index_name = "brain-tumor-2"  # Replace with your Pinecone index name
 index = pc.Index(index_name)
 
 # Initialize the Sentence Transformer model (BERT-based)
-model = SentenceTransformer('bert-base-uncased')  # You can use other models if needed
+genai.configure(api_key=st.secrets["api_key"])
+embedding_model = genai.GenerativeModel("embedding-001")
+ # You can use other models if needed
 
 # Function to generate embeddings from the text
 def generate_embeddings(text):
-    return model.encode([text])[0]  # Generate embedding for the input text
+    try:
+        response = embedding_model.embed_content(
+            content=text,
+            task_type="retrieval_document"
+        )
+        return response["embedding"]
+    except Exception as e:
+        st.error(f"Embedding generation failed: {e}")
+        return None
+
 
 # Function to query Pinecone
 def query_pinecone(query, top_k=3):
