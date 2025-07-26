@@ -20,7 +20,7 @@ index = pc.Index(index_name)
 
 # Initialize the Sentence Transformer model (BERT-based)
 genai.configure(api_key=st.secrets["api_key"])
-embedding_model = genai.GenerativeModel("embedding-001")
+
  # You can use other models if needed
 
 # Function to generate embeddings from the text
