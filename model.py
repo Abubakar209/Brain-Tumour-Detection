@@ -19,7 +19,7 @@ index = pc.Index(index_name)
 
 # Initialize the Sentence Transformer model (BERT-based)
 model = SentenceTransformer('bert-base-uncased')  # You can use other models if needed
-model.to('cpu')
+
 # Function to generate embeddings from the text
 def generate_embeddings(text):
     return model.encode([text])[0]  # Generate embedding for the input text
