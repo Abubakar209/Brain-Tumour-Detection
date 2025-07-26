@@ -18,7 +18,7 @@ index_name = "brain-tumor-2"  # Replace with your Pinecone index name
 index = pc.Index(index_name)
 
 # Initialize the Sentence Transformer model (BERT-based)
-model = SentenceTransformer('bert-base-uncased')  # You can use other models if needed
+model = SentenceTransformer('bert-base-uncased',device='cpu')  # You can use other models if needed
 
 # Function to generate embeddings from the text
 def generate_embeddings(text):
