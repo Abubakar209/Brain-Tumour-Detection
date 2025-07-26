@@ -42,13 +42,19 @@ def generate_embeddings(text):
 # Function to query Pinecone
 def query_pinecone(query, top_k=3):
     query_embedding = generate_embeddings(query)
+
+    if query_embedding is None:
+        st.error("Failed to generate embedding.")
+        return []
+
     query_results = index.query(
-        vector=query_embedding.tolist(),  # Convert numpy array to list
+        vector=query_embedding,  # ✅ Already a list
         top_k=top_k,
         include_metadata=True
     )
     results = [result['metadata']['text'] for result in query_results['matches']]
     return results
+
 
 # Function to generate a response using the Gemini API
 def generate_response(prompt, api_key):
