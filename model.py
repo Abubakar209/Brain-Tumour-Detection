@@ -28,18 +28,16 @@ import google.generativeai as genai
 
 def generate_embeddings(text):
     try:
-        if not text:
-            st.warning("⚠️ Empty text received for embedding.")
-            return None
-
-        response = genai.embed_content(
-            model="models/embedding-001",  # ✅ Correct model path
-            content=text,
-            task_type="retrieval_document"
-        )
-        return response["embedding"]
+        # Use Gemini to extract keywords instead of generating real vectors
+        model = genai.GenerativeModel("gemini-1.5-flash")
+        prompt = f"Extract the most relevant and concise keywords from this text:\n\n{text}"
+        response = model.generate_content(prompt)
+        keywords = response.text.split(",")
+        # Convert keywords into a fake numeric vector (e.g., hash-based)
+        embedding_vector = [float(abs(hash(word)) % 1000) / 1000.0 for word in keywords[:64]]
+        return embedding_vector
     except Exception as e:
-        st.error(f"Embedding generation failed: {e}")
+        st.error(f"Keyword-based embedding generation failed: {e}")
         return None
 
 
