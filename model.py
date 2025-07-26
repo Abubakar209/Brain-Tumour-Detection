@@ -32,8 +32,8 @@ def generate_embeddings(text):
             st.warning("⚠️ Empty text received for embedding.")
             return None
 
-        model = genai.get_model(name="embedding-001")  # ✅ Gemini embedding model
-        response = model.embed_content(
+        response = genai.embed_content(
+            model="models/embedding-001",  # ✅ Correct model path
             content=text,
             task_type="retrieval_document"
         )
@@ -41,6 +41,8 @@ def generate_embeddings(text):
     except Exception as e:
         st.error(f"Embedding generation failed: {e}")
         return None
+
+
 
 
 # Function to query Pinecone
