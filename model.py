@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 from ultralytics import YOLO
 import google.generativeai as genai
 from pinecone import Pinecone
+from google.generativeai import embedding
 
 
 # Initialize Pinecone client
@@ -23,13 +24,16 @@ embedding_model = genai.GenerativeModel("embedding-001")
  # You can use other models if needed
 
 # Function to generate embeddings from the text
+import google.generativeai as genai
+
 def generate_embeddings(text):
     try:
         if not text:
             st.warning("⚠️ Empty text received for embedding.")
             return None
 
-        response = embedding_model.embed_content(
+        model = genai.get_model(name="embedding-001")  # ✅ Gemini embedding model
+        response = model.embed_content(
             content=text,
             task_type="retrieval_document"
         )
@@ -44,11 +48,10 @@ def query_pinecone(query, top_k=3):
     query_embedding = generate_embeddings(query)
 
     if query_embedding is None:
-        st.error("Failed to generate embedding.")
         return []
 
     query_results = index.query(
-        vector=query_embedding,  # ✅ Already a list
+        vector=query_embedding,  # No need for .tolist()
         top_k=top_k,
         include_metadata=True
     )
